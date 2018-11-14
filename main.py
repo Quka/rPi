@@ -7,7 +7,7 @@ sense = SenseHat()
 count = 0
 
 while(True):
-    if(count == 5)
+    if(count == 5):
         sense_hat.clear()
         break
 
