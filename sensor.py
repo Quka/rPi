@@ -2,10 +2,12 @@ from sense_hat import SenseHat
 import socket
 from datetime import datetime
 import json
+import thread
 
 sense = SenseHat()
 timestamp = datetime.now()
 delay = 1 # delay i sekunder
+state = True # program runs if True
 
 def setup_udp_socket():
     # Setup UDP socket for broadcasting
@@ -21,27 +23,45 @@ def setup_udp_socket():
 
 def get_sense_data():
     sense_data = {
-        't': round(sense.get_temperature(), 1),
-        'p': round(sense.get_pressure(), 1),
-        'h': round(sense.get_humidity(), 1),
+        'temp': round(sense.get_temperature(), 1),
+        'press': round(sense.get_pressure(), 1),
+        'hum': round(sense.get_humidity(), 1),
         'date': datetime.now()
     }
     
     return sense_data
 
+# thread check if joystick is pressed
+# if joystick is pressed set while to True/False depending on state
+
+# init server
 server = setup_udp_socket()
 
-while(True):
-    data = get_sense_data()
-    time = data["date"] - timestamp # træk timestamp fra datetime i data
 
-    # Sæt et delay for hvor ofte den skal læse data
-    if time.seconds > delay:
+while True:
+    # check hvis man har trykket på joystick for at stoppe/starte program (while løkke forneden)
+    for e in sense.stick.get_events():
+        if e.action == 'pressed' and e.direction == 'middle':
+            state = True if state == False else False
+
+    # run program
+    while(state):
+        data = get_sense_data()
+        time = data["date"] - timestamp # træk timestamp fra datetime i data
+
+        # Sæt et delay for hvor ofte den skal læse data (delay = 1 sekund)
+        if time.seconds > delay:
+
+            # Convert dictionary to JSON Object (str) and then to bytes
+            dataBytes = (json.dumps(data, default=str)).encode()
+
+            # Broadcast message to port 37020 via UDP Socket
+            server.sendto(dataBytes, ('<broadcast>', 37020))
+
+            # Show a message on the display
+            sense.show_message( "sent", scroll_speed=0.05 )
         
-        # Convert dictionary to JSON Object (str) and then to bytes
-        dataBytes = (json.dumps(data, default=str)).encode()
-
-        # Broadcast message to port 37020 via UDP Socket
-        server.sendto(dataBytes, ('<broadcast>', 37020))
-
-        sense.show_message( "sent", scroll_speed=0.05 )
+        # check hvis man har trykket på joystick for at stoppe/starte program (while løkke forneden)
+        for e in sense.stick.get_events():
+            if e.action == 'pressed' and e.direction == 'middle':
+                state = True if state == False else False
