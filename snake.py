@@ -16,7 +16,7 @@ class AstroPiSnake():
     
     def __init__(self):
         pygame.init()
-        pygame.display.set_mode((640, 480))
+        pygame.display.set_mode((8, 8))
         
         self.ap = AstroPi()
         
