@@ -22,10 +22,12 @@ while(True):
     p = round(p, 1)
     h = round(h, 1)
 
+    # The message to send
     msg = "C = %s, P = %s H = %s" % (t, p, h)
+    # Encode the message to bytes and in utf-8 (default)
     msgBytes = msg.encode()
 
     # Broadcast message to port 37020 via UDP Socket
     server.sendto(msgBytes, ('<broadcast>', 37020))
 
-    sense.show_message( msg, scroll_speed=0.1 )
+    sense.show_message( "sent", scroll_speed=0.05 )
