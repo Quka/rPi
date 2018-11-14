@@ -11,5 +11,5 @@ while(True):
         sense_hat.clear()
         break
 
-    sense.show_message("SEND NUDES", text_colour=[255, 0, 0], back_colour=[100, 100, 100])
+    sense.show_message("SEND NUDES", text_colour=[255, 0, 0], back_colour=[0, 0, 0])
     count = count + 1
