@@ -2,7 +2,7 @@ from sense_hat import SenseHat
 import socket
 
 sense = SenseHat()
-timestamp = datetime.now
+timestamp = datetime.now()
 
 def setup_udp_socket():
     # Setup UDP socket for broadcasting
