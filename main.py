@@ -5,4 +5,4 @@ import time
 sense = SenseHat()
 
 while(True):
-    sense.show_message("SEND NUDES", text_colour=[255, 0, 0], back_colour=[255, 255, 255])
+    sense.show_message("SEND NUDES", text_colour=[255, 0, 0], back_colour=[100, 100, 100])
