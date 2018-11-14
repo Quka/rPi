@@ -1,6 +1,7 @@
 from sense_hat import SenseHat
 import socket
 from datetime import datetime
+import json
 
 sense = SenseHat()
 timestamp = datetime.now()
@@ -41,7 +42,8 @@ while(True):
         # Encode the message to bytes and in utf-8 (default)
         msgBytes = msg.encode()
 
-        dataBytes = data.encode()
+        # Convert dictionary to JSON Object (str) and then to bytes
+        dataBytes = (json.dumps(data)).encode()
 
         # Broadcast message to port 37020 via UDP Socket
         server.sendto(dataBytes, ('<broadcast>', 37020))
