@@ -37,11 +37,7 @@ while(True):
 
     # Sæt et delay for hvor ofte den skal læse data
     if time.seconds > delay:
-        # The message to send
-        msg = "C = %s, P = %s H = %s" % (data["t"], data["p"], data["h"])
-        # Encode the message to bytes and in utf-8 (default)
-        msgBytes = msg.encode()
-
+        
         # Convert dictionary to JSON Object (str) and then to bytes
         dataBytes = (json.dumps(data, default=str)).encode()
 
