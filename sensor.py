@@ -1,6 +1,6 @@
 from sense_hat import SenseHat
 import socket
-import datetime import datetime
+from datetime import datetime
 
 sense = SenseHat()
 timestamp = datetime.now()
