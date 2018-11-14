@@ -43,7 +43,7 @@ while(True):
         msgBytes = msg.encode()
 
         # Convert dictionary to JSON Object (str) and then to bytes
-        dataBytes = (json.dumps(data)).encode()
+        dataBytes = (json.dumps(data, default=str)).encode()
 
         # Broadcast message to port 37020 via UDP Socket
         server.sendto(dataBytes, ('<broadcast>', 37020))
