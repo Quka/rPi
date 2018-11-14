@@ -31,7 +31,7 @@ server = setup_udp_socket()
 
 while(True):
     data = get_sense_data()
-    time = data[-1] - timestamp # træk timestamp fra datetime i data
+    time = data["date"] - timestamp # træk timestamp fra datetime i data
 
     if time.seconds > delay:
         # The message to send
