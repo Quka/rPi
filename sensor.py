@@ -4,6 +4,7 @@ from datetime import datetime
 
 sense = SenseHat()
 timestamp = datetime.now()
+delay = 1 # delay i sekunder
 
 def setup_udp_socket():
     # Setup UDP socket for broadcasting
@@ -33,6 +34,7 @@ while(True):
     data = get_sense_data()
     time = data["date"] - timestamp # træk timestamp fra datetime i data
 
+    # Sæt et delay for hvor ofte den skal læse data
     if time.seconds > delay:
         # The message to send
         msg = "C = %s, P = %s H = %s" % (t, p, h)
