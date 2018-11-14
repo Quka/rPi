@@ -22,9 +22,10 @@ while(True):
     p = round(p, 1)
     h = round(h, 1)
 
-    msg = ("C = %s, P = %s H = %s" % (t, p, h)).encode()
+    msg = "C = %s, P = %s H = %s" % (t, p, h)
+    msgBytes = msg.encode()
 
     # Broadcast message to port 37020 via UDP Socket
-    server.sendto(msg, ('<broadcast>', 37020))
+    server.sendto(msgBytes, ('<broadcast>', 37020))
 
     sense.show_message( msg, scroll_speed=0.1 )
